@@ -9,7 +9,7 @@ def storeNum(inputNum):
 def placeNum(btnNum):
     numToAdd = btnNum
     current = calDisp.get()
-    calDisp.set(current+btnNum)
+    calDisp.textvariable.set(current+btnNum)
     print("Function 'Placenum' Activated")
 
 # Function to Create 10 buttons, name,  and store them 
