@@ -1,42 +1,30 @@
+from enum import IntFlag
 from tkinter import *
-# Function for showing numbers in the entry widget
-def placeNum(btnNum,btArray):
-    btArray = btArray
-    numToAdd = str(btnNum)
-    current = textBox.get('1.0')
-    if current == "Please enter number":
-        textBox.delete('0', END) 
-        textBox.insert(index='1.0', chars=numToAdd)
-        current=''
-        print(f"Function 'Placenum' Activated")
-    else:
-        textBox.insert(index="1.0", chars= numToAdd)
-        print(btArray.find(Button.text))
       
-
 # Function to Create 10 buttons, name,  and store them 
-
 def buttonMaker():
-    #Button(calc, activebackground="red", width = 2, text=buttonTitle, command= lambda: placeNum(self.text)),cursor = "hand2")
-    
-    x = 0
-    btnArr = [] 
-    
-    while x < 10:   
-        buttonTitle = str(x)
-        buttonNumber = x
-        btnArr.append(Button(calc, 
-                             activebackground="red", 
-                             width = 2, 
-                             text=buttonTitle, 
-                             command= lambda: placeNum(int()),
-                             #command = testButton,
-                             #state='disabled', 
-                             cursor = "hand2"))
-        x = x+1
-    
-    return btnArr
-
+    btArray = []
+    zero =Button(calc, activebackground="red", width = 2, text="0", command= lambda: placeNum(0), cursor = "hand2")
+    btArray.append(zero)
+    one =Button(calc, activebackground="red", width = 2, text="1", command= lambda: placeNum(1), cursor = "hand2")
+    btArray.append(one)
+    two =Button(calc, activebackground="red", width = 2, text="2", command= lambda: placeNum(2), cursor = "hand2")
+    btArray.append(two)
+    three =Button(calc, activebackground="red", width = 2, text="3", command= lambda: placeNum(3), cursor = "hand2")
+    btArray.append(three)
+    four =Button(calc, activebackground="red", width = 2, text="4", command= lambda: placeNum(4), cursor = "hand2")
+    btArray.append(four)
+    five =Button(calc, activebackground="red", width = 2, text="5", command= lambda: placeNum(5), cursor = "hand2")
+    btArray.append(five)
+    six =Button(calc, activebackground="red", width = 2, text="6", command= lambda: placeNum(6), cursor = "hand2")
+    btArray.append(six)
+    seven =Button(calc, activebackground="red", width = 2, text="7", command= lambda: placeNum(7), cursor = "hand2")
+    btArray.append(seven)
+    eight =Button(calc, activebackground="red", width = 2, text="8", command= lambda: placeNum(8), cursor = "hand2")
+    btArray.append(eight)
+    nine =Button(calc, activebackground="red", width = 2, text="9", command= lambda: placeNum(9), cursor = "hand2")
+    btArray.append(nine)
+    return btArray
 
 # Initialising variables to automate the layout of the buttons
 def buttonPlacer(btArray):
@@ -51,22 +39,130 @@ def buttonPlacer(btArray):
             y=0
             z=z+1
     btArray[0].configure(width = 9)
-    
-
     btArray[0].grid(column = 0, row = 4, columnspan = 3, sticky=NSEW)
 
-# function for storing numbers
-def storeNum(inputNum):
-    number_to_store = textBox.get()
-    print(f"number being stored: {number_to_store}")
-    recentNums = []
-    recentNums.append(inputNum)
+# Function for showing numbers in the text widget
+def placeNum(btnNum):
+    numToAdd = str(btnNum)
+    current = textBox.get('1.0')
+    if current == "Please enter number":
+        textBox.delete('0', END) 
+        textBox.insert(index=LAST, chars=numToAdd)
+        current=''
+        print(f"Function 'Placenum' Activated")
+    else:
+        textBox.insert(index=END, chars= numToAdd)
 
+# Functions for initating operations
+def plus(recents, operand):
+    operand.append("P")
+    last_operation = operand[len(operand)-1]
+    number_to_store = int(textBox.get("1.0", END))
+    recents.append(number_to_store)
+    if (len(recents) > 1) and (last_operation=='P'):
+           prevnum = recents[len(recents)-2]
+           recents.append(prevnum + number_to_store )
+    if (len(recents) > 1) and (last_operation=='M'):
+           prevnum = recents[len(recents)-2]
+           recents.append(prevnum - number_to_store )
+    textBox.delete('1.0', END)
+    print(f"LOG: recents elements: {recent_num_array}\n     Operand: {last_operation}")
+    return recents
+
+def minus(recents, operand):
+    last_operation = operand[len(operand)-1]
+    number_to_store = int(textBox.get("1.0", END))
+    recents.append(number_to_store)
+    if (len(recents) > 1) and (last_operation=='M'):
+           prevnum = recents[len(recents)-2]
+           recents.append(prevnum - number_to_store )
+    if (len(recents) > 1) and (last_operation=='P'):
+           prevnum = recents[len(recents)-2]
+           recents.append(prevnum + number_to_store )
+    operand.append("M")
+    textBox.delete('1.0', END)
+    print(f"LOG: recents elements: {recent_num_array}\n     Operand: {last_operation}")
+    return recents
+
+def times(recents, operand):
+    operand.append("T")
+    last_operation = operand[len(operand)-1]
+    number_to_store = int(textBox.get("1.0", END))
+    recents.append(number_to_store)
+    if (len(recents) > 1) and (last_operation=='P'):
+           prevnum = recents[len(recents)-2]
+           recents.append(prevnum * number_to_store )
+    textBox.delete('1.0', END)
+    print(f"LOG: recents elements: {recent_num_array}\n     Operand: {last_operation}")
+    return recents
+
+def divide(recents, operand):
+    operand.append("D")
+    last_operation = operand[len(operand)-1]
+    number_to_store = int(textBox.get("1.0", END))
+    recents.append(number_to_store)
+    if (len(recents) > 1) and (last_operation=='P'):
+           prevnum = recents[len(recents)-2]
+           recents.append(prevnum / number_to_store )
+    textBox.delete('1.0', END)
+    print(f"LOG: recents elements: {recent_num_array}\n     Operand: {last_operation}")
+    return recents
+
+# Adding buttons for operations 
+def operations():
+    addButton = Button(calc, text = "+", command= lambda: plus(recent_num_array, operand), cursor = "hand2")
+    addButton.grid(column=3,row=1, sticky= NSEW)
+    minusButton = Button(calc, text = "-", command= lambda: minus(recent_num_array, operand), cursor = "hand2")
+    minusButton.grid(column=3,row=2, sticky= NSEW)
+    '''   
+   timesButton = Button(calc, text = "x", command= lambda: times(recent_num_array, operand), cursor = "hand2")
+    timesButton.grid(column=3,row=3, sticky= NSEW)
+    divideButton = Button(calc, text = "/", command= lambda: divide(recent_num_array, operand), cursor = "hand2")
+    divideButton.grid(column=3,row=4, sticky= NSEW)
+    '''    
+
+def displayAnswer(recents, operand):
+    last_num_typed = textBox.get("1.0", END)
+    last_op = operand[len(operand)-1]
+    #textBox.delete("1.0", END)
+    print(operand)
+    print(recent_num_array)
+    try:
+        if last_op =='P':
+            prevnum = recents[len(recents)-1]
+            answer = prevnum + int(last_num_typed)
+            textBox.delete("1.0", END)
+            textBox.insert('1.0', answer) 
+        if last_op =='M':
+            prevnum = recents[len(recents)-1]
+            answer = prevnum - int(last_num_typed)
+            textBox.delete("1.0", END)
+            textBox.insert('1.0', answer) 
+        if last_op =='T':
+            prevnum = recents[len(recents)-1]
+            answer = prevnum * int(last_num_typed)
+            textBox.delete("1.0", END)
+            textBox.insert('1.0', answer) 
+        if last_op =='D':
+            prevnum = recents[len(recents)-1]
+            answer = prevnum / int(last_num_typed)
+            textBox.delete("1.0", END)
+            textBox.insert('1.0', answer) 
+    except IndexError:
+        textBox.delete("1.0", END)
+        textBox.insert(END, "There was a problem with this operation")
+
+def acFuntion():
+    textBox.delete("1.0", END)
+    recent_num_array.clear()
+    answer_array.clear()
+
+# Main initialisers and callers
 # Creating root window
 calc = Tk()
 calc.geometry("500x600")
 calc.title("Calcul8r")
-calc.resizable('False', 'False')
+calc.resizable('False', 'False')    
 calc.columnconfigure(0,weight=1)
 calc.columnconfigure(1,weight=1)
 calc.columnconfigure(2,weight=1)
@@ -76,20 +172,20 @@ calc.rowconfigure(1, weight=1)
 calc.rowconfigure(2, weight=1)
 calc.rowconfigure(3, weight=1)
 calc.rowconfigure(4, weight=1)
-
+calc.rowconfigure(5, weight=1)
+recent_num_array = []
+answer_array = []
+operand = []
 # Creating Text widget for entering numbers 
 textBox = Text(calc, bg = "grey", height=1, width=6)
-#textBox['state'] = 'disabled'
 textBox.grid(column = 0, row = 0, columnspan=4, sticky=NSEW)
-
-#program for testing buttons
-def testButton(text):
-    textBox.insert('1.0', chars= '')
-    print(f"numbers being stored: {textBox.get(1.0)}")
-# Main program
-def main():
-    btArray = buttonMaker()
-    buttonPlacer(btArray)
-    calc.mainloop()
-#running program
-main()
+equal_button = Button(calc, activebackground="green", text="=", command= lambda: displayAnswer(recent_num_array, operand))
+equal_button.grid(column=0, row = 5, columnspan = 3, sticky=NSEW)
+ACbutton = Button(calc, width = 2, text="AC", command= acFuntion, cursor = "hand2")
+ACbutton.grid(column=3, row = 5, sticky=NSEW)
+#textBox.insert(END, "0")
+#construction
+btArray = buttonMaker()
+buttonPlacer(btArray)
+operations()
+calc.mainloop()
