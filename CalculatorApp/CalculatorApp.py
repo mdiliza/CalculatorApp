@@ -173,13 +173,13 @@ def divide(recents, operand):
 # Adding buttons for operations 
 def operations():
     addButton = Button(calc, text = "+",  font=custom_font_buttons, command= lambda: plus(recent_num_array, operand), cursor = "hand2")
-    addButton.grid(column=4,row=1, sticky= NSEW)
+    addButton.grid(column=3,row=1, sticky= NSEW)
     minusButton = Button(calc, text = "-", font=custom_font_buttons, command= lambda: minus(recent_num_array, operand), cursor = "hand2")
-    minusButton.grid(column=4,row=2, sticky= NSEW)
+    minusButton.grid(column=3,row=2, sticky= NSEW)
     timesButton = Button(calc, text = "x", font=custom_font_buttons, command= lambda: times(recent_num_array, operand), cursor = "hand2")
-    timesButton.grid(column=4,row=3, sticky= NSEW)
+    timesButton.grid(column=3,row=3, sticky= NSEW)
     divideButton = Button(calc, text = "/", font=custom_font_buttons, command= lambda: divide(recent_num_array, operand), cursor = "hand2")
-    divideButton.grid(column=4,row=4, sticky= NSEW)
+    divideButton.grid(column=3,row=4, sticky= NSEW)
         
 def displayAnswer(recents, operand, display_answer):
     last_num_typed = textBox.get("1.0", END)
@@ -253,6 +253,8 @@ def acFuntion():
 # Main initialisers and callers
 # Creating root window
 calc = Tk()
+app_icon = tkinter.PhotoImage(file = "calc_icon_png.png")
+calc.iconphoto(True, app_icon)
 calc.geometry("500x600")
 calc.title("Calcul8r")
 calc.resizable('False', 'False')    
@@ -291,7 +293,7 @@ ACbutton.grid(column=3, row = 5, sticky=NSEW)
 
 # Creating decimal point button
 pointButton = Button(calc, text = ".", font = custom_font_buttons, command = placePoint, cursor = "hand2", padx = 1)
-pointButton.grid(column = 3, row = 1, rowspan = 4, sticky = NSEW)
+pointButton.grid(column = 4, row = 1, rowspan = 4, sticky = NSEW)
 
 # Constructing and initialising window
 btArray = buttonMaker()
