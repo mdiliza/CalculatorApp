@@ -259,9 +259,8 @@ def acFuntion():
 # Main initialisers and callers
 # Creating root window
 calc = Tk()
-app_icon = tkinter.PhotoImage(file = "calc_icon_png.png")
-calc.iconphoto(True, app_icon)
 calc.geometry("500x600")
+calc.iconbitmap("calc_icon_png.ico")
 calc.title("Calcul8r")
 calc.resizable('False', 'False')    
 calc.columnconfigure(0,weight=1)
