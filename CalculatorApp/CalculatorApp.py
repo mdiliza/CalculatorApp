@@ -1,5 +1,6 @@
 from tkinter import *
 import tkinter.font   
+
 # Function to Create 10 buttons, name,  and store them 
 def buttonMaker():
     btArray = []
@@ -183,6 +184,7 @@ def operations():
         
 def displayAnswer(recents, operand, display_answer):
     last_num_typed = textBox.get("1.0", END)
+    #recents.append(last_num_typed)
     display_answer = True
     try:
         last_op = operand[len(operand)-1]
@@ -190,6 +192,7 @@ def displayAnswer(recents, operand, display_answer):
             prevnum = recents[len(recents)-2]
             try:
                 answer = prevnum + float(last_num_typed)
+                answer  = round(answer, 8)
                 recent_num_array.append(answer)
                 if answer.is_integer():
                     answer = int(answer)
@@ -203,6 +206,7 @@ def displayAnswer(recents, operand, display_answer):
             prevnum = recents[len(recents)-2]
             try:
                 answer = prevnum - float(last_num_typed)
+                answer  = round(answer, 8)
                 if answer.is_integer():
                     answer = int(answer)
                 textBox.delete("1.0", END)
@@ -215,6 +219,7 @@ def displayAnswer(recents, operand, display_answer):
             prevnum = recents[len(recents)-2]
             try:
                 answer = prevnum * float(last_num_typed)
+                answer  = round(answer, 8)
                 if answer.is_integer():
                     answer = int(answer)
                 textBox.delete("1.0", END)
@@ -227,6 +232,7 @@ def displayAnswer(recents, operand, display_answer):
             prevnum = recents[len(recents)-2]
             try:
                 answer = prevnum / float(last_num_typed)
+                answer  = round(answer, 8)
                 if answer.is_integer():
                     answer = int(answer)
                 textBox.delete("1.0", END)
@@ -273,6 +279,7 @@ recent_num_array = []
 answer_array = []
 operand = []
 display_answer = False
+
 #Custom Fonts
 custom_font_buttons = tkinter.font.Font(family= "Arial", size = 20, weight = "bold")
 custom_font_numbers = tkinter.font.Font(family= "consola", size = 60, weight = "bold")
